@@ -34,12 +34,19 @@
   (when (logged-in?)
     (get @*session* :user)))
 
+(defn assume-http-if-not [url]
+  (if-not (re-find #"^(\w+://){1}" url) ;; no protocol found
+    (str "http://" url)
+    url))
+
 (defn new-link [{:keys [title url]}]
-  {:title title
-   :url (normalize-url url)
-   :domain ""
-   :user (current-user)
-   :created-at (java.util.Date.)})
+  (let [parsed-url (normalize-url (assume-http-if-not url))
+        domain (:host (cemerick.url/url parsed-url))]
+    {:title title
+     :url parsed-url
+     :domain domain
+     :user (current-user)
+     :created-at (java.util.Date.)}))
 
 (defn add-link [db-val details]
   (update-in db-val [:links] conj (new-link details)))
