@@ -16,11 +16,17 @@
 
 (defc= links (:links state))
 
+(defc= loaded? (not= {} state))
+(defc= logged-in? (contains? state :current-user))
+(defc= show-login? (and loaded? (not logged-in?)))
+
+(defc= user (:current-user state))
+
 (def get-state
   (mkremote 'gnar.api.gnar/get-state state error (cell nil)))
 
 (def submit-link!
-  (mkremote 'gnar.api.gnar/submit-link state error loading) )
+  (mkremote 'gnar.api.gnar/submit-link state error loading))
 
 (defn init []
   (get-state)

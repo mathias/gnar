@@ -6,10 +6,16 @@
       [tailrecursion.hoplon.reload :refer [reload-all]]))
 
 ;;  (reload-all 25)
-  (gnar/init)
-  (defc current-username "mathiasx")
-  (cell= (print (:trace gnar/error)))
 
+  (cell= (print (:trace gnar/error)))
+  (defc= error-message (:message gnar/error))
+
+  (def register? (cell nil))
+  (def log-reg! #(if @register?
+                     (gnar/register! %1 %2 %3)
+                     (gnar/login! %1 %2)))
+
+  (gnar/init)
 </script>
 
 <!DOCTYPE html>
@@ -32,10 +38,31 @@
           <li><input type="text" id="search" placeholder="search"></li>
         </ul>
       </nav>
+      <div id="flash error">
+        <text>~{error-message}</text>
+      </div>
     </header>
-    <section id="add-new-link">
 
-      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) :username @current-username})) }}">
+    <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
+      <form id="login" on-submit="{{ #(log-reg! (val-id :user) (val-id :password) (val-id :password-confirmation)) }}">
+        <label>Username</label>
+        <input type="text" id="user" placeholder="Username">
+
+        <label>Password</label>
+        <input type="text" id="password" placeholder="Password">
+
+        <div do-toggle="{{ register? }}">
+          <label>Password Confirmation</label>
+          <input type="text" id="password-confirmation" placeholder="Password Confirmation">
+        </div>
+
+        <button type="submit">submit</button>
+      </form>
+    </section>
+
+    <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
+      <strong>Add new link</strong>
+      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) :username @gnar/current-user})) }}">
         <label>Title</label>
         <input type="text" id="link-title" placeholder="My Link">
 
@@ -47,12 +74,12 @@
     </section>
     <section id="content">
       <ol id="links-list" class="hfeed">
-        <loop-tpl bindings="{{ [{:keys [href title user domain created-at]} gnar/links] }}">
+        <loop-tpl bindings="{{ [{:keys [url title user domain created-at]} gnar/links] }}">
           <li>
             <article class="hentry">
               <header>
                 <h2 class="entry-title">
-                  <a href="#" rel="bookmark">
+                  <a do-href="{{ url }}" rel="bookmark">
                     <text>~{title}</text>
                   </a>
                 </h2>
