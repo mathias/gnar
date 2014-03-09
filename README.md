@@ -1,6 +1,6 @@
 # gnar
 
-## Goals
+**Goals**
 
 * Take the functionality of a site like Lobsters or HN and strip it down to its essence.
 * Add functionality to fit how [Bendyworks](http://bendyworks.com) uses [awesome](http://awesome.bendyworks.com)
