@@ -11,10 +11,11 @@
   (defc= error-message (:message gnar/error))
 
   (def register? (cell nil))
+  (def toggle-register! #(swap! register? not))
   (def log-reg! #(if @register?
                      (gnar/register! %1 %2 %3)
                      (gnar/login! %1 %2)))
-
+  (def reg-link-text  (cell= (if register? "log in" "register")))
   (gnar/init)
 </script>
 
@@ -34,7 +35,7 @@
       <nav>
         <ul>
           <li><a href="#">Home</a></li>
-          <li><a href="#">Login</a></li>
+          <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
           <li><input type="text" id="search" placeholder="search"></li>
         </ul>
       </nav>
@@ -49,20 +50,23 @@
         <input type="text" id="user" placeholder="Username">
 
         <label>Password</label>
-        <input type="text" id="password" placeholder="Password">
+        <input type="password" id="password" placeholder="Password">
 
         <div do-toggle="{{ register? }}">
           <label>Password Confirmation</label>
-          <input type="text" id="password-confirmation" placeholder="Password Confirmation">
+          <input type="password" id="password-confirmation" placeholder="Password Confirmation">
         </div>
 
         <button type="submit">submit</button>
+        <a href="#" on-click="{{ toggle-register! }}">
+          <text>~{reg-link-text}</text>
+        </a>
       </form>
     </section>
 
     <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
       <strong>Add new link</strong>
-      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) :username @gnar/current-user})) }}">
+      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })) }}">
         <label>Title</label>
         <input type="text" id="link-title" placeholder="My Link">
 

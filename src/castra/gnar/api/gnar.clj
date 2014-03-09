@@ -29,23 +29,41 @@
 
 (def db (atom initial-db-value))
 
-(defn get-state [& [user]]
-  (let [db-val @db]
-    (if (logged-in?)
-      {:current-user user
-       :links (rseq (:links db-val))}
-      {:links (rseq (:links db-val))})))
+(defn current-user []
+  (when (logged-in?)
+    (get @*session* :user)))
 
-(defn new-link [{:keys [title url username]}]
+(defn new-link [{:keys [title url]}]
   {:title title
    :url url
    :domain ""
-   :user username
+   :user (current-user)
    :created-at (java.util.Date.)})
 
 (defn add-link [db-val details]
   (update-in db-val [:links] conj (new-link details)))
 
+(defn get-state [& [user]]
+  (let [db-val @db
+        current-user (current-user)]
+    (if (logged-in?)
+      {:current-user current-user
+       :links (rseq (:links db-val))}
+      {:links (rseq (:links db-val))})))
+
+(defn register [user password password-confirmation]
+  {:rpc/pre [(register! db user password password-confirmation)]}
+  (get-state user))
+
+(defn login [user pass]
+  {:rpc/pre [(login! db user pass)]}
+  (get-state user))
+
+(defn logout []
+  {:rpc/pre [(logout!)]}
+  (get-state))
+
 (defn submit-link [details]
+  {:rpc/pre [(logged-in?)]}
   (swap! db add-link details)
   (get-state))
