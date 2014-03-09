@@ -8,20 +8,20 @@
             "josh" {:pass "password"}})
 
 (def links [{:href "#"
-              :title "Ruby 2.1 - Our Experience (ed note: big improvements, some incompat issues)"
-              :domain "thbpro.com"
-              :user "mathiasx"
-              :created-at "3 hours ago"}
-             {:href "#"
-              :title "The Micro-Service Architecture"
-              :user "devin"
-              :domain "youtube.com"
-              :created-at "1 day ago"}
-             {:href "#"
-              :title "Spritz (read things fast/comfortably"
-              :user "josh"
-              :domain "sprintzinc.com"
-              :created-at "4 days ago"}])
+             :title "Spritz (read things fast/comfortably"
+             :user "josh"
+             :domain "sprintzinc.com"
+             :created-at "4 days ago"}
+            {:href "#"
+             :title "The Micro-Service Architecture"
+             :user "devin"
+             :domain "youtube.com"
+             :created-at "1 day ago"}
+            {:href "#"
+             :title "Ruby 2.1 - Our Experience (ed note: big improvements, some incompat issues)"
+             :domain "thbpro.com"
+             :user "mathiasx"
+             :created-at "3 hours ago"}])
 
 (def initial-db-value
   {:users users
