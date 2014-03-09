@@ -44,26 +44,29 @@
     </header>
     <section id="content">
       <ol id="links-list" class="hfeed">
-        <li>
-          <article class="hentry">
-            <header>
-              <h2 class="entry-title">
-                <a href="#" rel="bookmark">
-                  Link Title
-                </a>
-              </h2>
-              domain
-            </header>
-            <footer class="post-info">
-              <abbr class="published" title="2005-10-10T14:07:00-07:00">
-                10th October 2005
-              </abbr>
-              <address class="vcard author">
-                By
-                <a class="url fn" href="#">mathiasx</a>
-              </address>
-          </article>
-        </li>
+        <loop-tpl bindings="{{ [{:keys [href title user domain created-at]} links] }}">
+          <li>
+            <article class="hentry">
+              <header>
+                <h2 class="entry-title">
+                  <a href="#" rel="bookmark">
+                    <text>~{title}</text>
+                  </a>
+                </h2>
+                (<text>~{domain}</text>)
+              </header>
+              <footer class="post-info">
+                <abbr class="published" title="2005-10-10T14:07:00-07:00">
+                  <text>~{created-at}</text>
+                </abbr>
+                <address class="vcard author">
+                  by
+                  <a class="url fn" href="#"><text>~{user}</text></a>
+                </address>
+            </article>
+          </li>
+        </loop-tpl>
+
       </ol>
     </section>
     <footer>
