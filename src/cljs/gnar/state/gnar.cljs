@@ -24,4 +24,5 @@
 
 (defn init []
   (get-state)
-  (js/setInterval get-state 1000))
+  ;; Check every 5 seconds for new data
+  (js/setInterval get-state 5000))
