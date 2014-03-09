@@ -2,25 +2,14 @@
   (page "index.html"
     (:refer-clojure :exclude [nth])
     (:require
+      [gnar.state.gnar :as gnar]
       [tailrecursion.hoplon.reload :refer [reload-all]]))
 
-  (reload-all 25)
+;;  (reload-all 25)
+  (gnar/init)
+  (defc current-username "mathiasx")
+  (cell= (print (:trace gnar/error)))
 
-  (defc links [{:href "#"
-                :title "Ruby 2.1 - Our Experience (ed note: big improvements, some incompat issues)"
-                :domain "thbpro.com"
-                :user "mathiasx"
-                :created-at "3 hours ago"}
-               {:href "#"
-                :title "The Micro-Service Architecture"
-                :user "devin"
-                :domain "youtube.com"
-                :created-at "1 day ago"}
-               {:href "#"
-                :title "Spritz (read things fast/comfortably"
-                :user "josh"
-                :domain "sprintzinc.com"
-                :created-at "4 days ago"}])
 </script>
 
 <!DOCTYPE html>
@@ -38,13 +27,27 @@
       <h1>gnar</h1>
       <nav>
         <ul>
-          <li><a href="#">Home</a>
-          <li><a href="#">Login</a>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Login</a></li>
+          <li><input type="text" id="search" placeholder="search"></li>
+        </ul>
       </nav>
     </header>
+    <section id="add-new-link">
+
+      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) :username @current-username})) }}">
+        <label>Title</label>
+        <input type="text" id="link-title" placeholder="My Link">
+
+        <label>URL</label>
+        <input type="text" id="link-url" placeholder="http://example.com">
+
+        <button type="submit">submit</button>
+      </form>
+    </section>
     <section id="content">
       <ol id="links-list" class="hfeed">
-        <loop-tpl bindings="{{ [{:keys [href title user domain created-at]} links] }}">
+        <loop-tpl bindings="{{ [{:keys [href title user domain created-at]} gnar/links] }}">
           <li>
             <article class="hentry">
               <header>
