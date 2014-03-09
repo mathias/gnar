@@ -26,7 +26,7 @@
   []
   (comp (r/head) (r/dev-mode) (r/session-cookie) (r/files) (castra 'gnar.api.gnar) (r/jetty)))
 
-(deftask gnar-demo
-  "Build the castra gnar demo. Server on port 8000."
+(deftask gnar-app
+  "Build the castra gnar app. Runs site on port 8000."
   []
   (comp (watch) (hoplon {:prerender false}) (server)))

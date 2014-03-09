@@ -1,0 +1,73 @@
+<script type="text/hoplon">
+  (page "index.html"
+    (:refer-clojure :exclude [nth])
+    (:require
+      [tailrecursion.hoplon.reload :refer [reload-all]]))
+
+  (reload-all 25)
+
+  (defc links [{:href "#"
+                :title "Ruby 2.1 - Our Experience (ed note: big improvements, some incompat issues)"
+                :domain "thbpro.com"
+                :user "mathiasx"
+                :created-at "3 hours ago"}
+               {:href "#"
+                :title "The Micro-Service Architecture"
+                :user "devin"
+                :domain "youtube.com"
+                :created-at "1 day ago"}
+               {:href "#"
+                :title "Spritz (read things fast/comfortably"
+                :user "josh"
+                :domain "sprintzinc.com"
+                :created-at "4 days ago"}])
+</script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>gnar</title>
+
+    <link href="app.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <h1>gnar</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a>
+          <li><a href="#">Login</a>
+      </nav>
+    </header>
+    <section id="content">
+      <ol id="links-list" class="hfeed">
+        <li>
+          <article class="hentry">
+            <header>
+              <h2 class="entry-title">
+                <a href="#" rel="bookmark">
+                  Link Title
+                </a>
+              </h2>
+              domain
+            </header>
+            <footer class="post-info">
+              <abbr class="published" title="2005-10-10T14:07:00-07:00">
+                10th October 2005
+              </abbr>
+              <address class="vcard author">
+                By
+                <a class="url fn" href="#">mathiasx</a>
+              </address>
+          </article>
+        </li>
+      </ol>
+    </section>
+    <footer>
+      Copyright 2014 <a href="http://blog.mattgauger.com">Matt Gauger</a>.
+    </footer>
+  </body>
+</html>
