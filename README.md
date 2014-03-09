@@ -12,6 +12,8 @@ Make it super mobile friendly and (someday) send some emails automatically inste
 * [HoneySQL](https://github.com/jkk/honeysql) for Postgres database
 * Boot for tasks
 
+User auth inspired by [tailrecursion/hoplon-demos](https://github.com/tailrecursion/hoplon-demos/blob/d9f2b726c5b89f4cdaf69fdaac007c69ea545599/castra-chat/src/castra/demo/http/rules.clj)
+
 ## License
 
 Copyright © 2014 Matt Gauger
