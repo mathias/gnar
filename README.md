@@ -1,10 +1,11 @@
 # gnar
 
-Take the functionality of a site like Lobsters or HN and strip it down to its essence.
+## Goals
 
-Add functionality to fit how [Bendyworks](http://bendyworks.com) uses [awesome](http://awesome.bendyworks.com)
-
-Make it super mobile friendly and (someday) send some emails automatically instead of having comment threads.
+* Take the functionality of a site like Lobsters or HN and strip it down to its essence.
+* Add functionality to fit how [Bendyworks](http://bendyworks.com) uses [awesome](http://awesome.bendyworks.com)
+* Make it super mobile friendly
+* (someday) send daily digest emails automatically instead of having comment threads. (See: [awesome_digest](https://github.com/bendyworks/awesome_digest))
 
 ## Technical stuff
 
