@@ -1,7 +1,8 @@
 (ns gnar.api.gnar
   (:refer-clojure :exclude [defn])
   (:use [gnar.http.rules :exclude [assert]])
-  (:require [tailrecursion.castra :refer [defn ex error *session*]]))
+  (:require [tailrecursion.castra :refer [defn ex error *session*]]
+            [hearst.url-cleanup :refer [normalize-url]]))
 
 (def users {"mathiasx" {:pass "password"}
             "devin" {:pass "password"}
@@ -35,7 +36,7 @@
 
 (defn new-link [{:keys [title url]}]
   {:title title
-   :url url
+   :url (normalize-url url)
    :domain ""
    :user (current-user)
    :created-at (java.util.Date.)})

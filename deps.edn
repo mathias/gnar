@@ -3,4 +3,5 @@
  [tailrecursion/boot.notify "2.0.0-SNAPSHOT"]
  [tailrecursion/boot.ring   "0.1.0-SNAPSHOT"]
  [org.clojure/clojurescript "0.0-2156"]
- [honeysql "0.4.3"]]
+ [honeysql "0.4.3"]
+ [hearst "0.1.1-SNAPSHOT"]]
