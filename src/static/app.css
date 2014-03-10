@@ -162,6 +162,7 @@ body > header ul li input[type="text"] {
   list-style: decimal inside;
   -webkit-margin-before: 0;
   -webkit-padding-start: 0;
+  margin-bottom: 0;
 }
 
 #content ol li {
