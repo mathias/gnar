@@ -16,6 +16,7 @@
                      (gnar/register! %1 %2 %3)
                      (gnar/login! %1 %2)))
   (def reg-link-text  (cell= (if register? "log in" "register")))
+  (def login-button-text  (cell= (if (not register?) "log in" "register")))
   (gnar/init)
 </script>
 
@@ -26,6 +27,8 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>gnar</title>
 
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="normalize.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
   </head>
 
@@ -34,7 +37,7 @@
       <h1>gnar</h1>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
           <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
           <li><input type="text" id="search" placeholder="search"></li>
         </ul>
@@ -43,39 +46,45 @@
         <text>~{error-message}</text>
       </div>
     </header>
+    <div id="interactors">
+      <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
+        <form id="login" on-submit="{{ #(log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
+          <div class="inputs">
+            <!--<label>Email address</label>-->
+            <input type="text" id="email" placeholder="Email address">
 
-    <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
-      <form id="login" on-submit="{{ #(log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
-        <label>Email address</label>
-        <input type="text" id="email" placeholder="Email address">
+            <!--<label>Password</label>-->
+            <input type="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
 
-        <label>Password</label>
-        <input type="password" id="password" placeholder="Password">
+            <!--<label>Password Confirmation</label>-->
+            <input type="password" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
+          </div>
 
-        <div do-toggle="{{ register? }}">
-          <label>Password Confirmation</label>
-          <input type="password" id="password-confirmation" placeholder="Password Confirmation">
-        </div>
+          <div class="actions">
+            <button type="submit"><text>~{login-button-text}</text></button>
+            <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
+              <text>~{reg-link-text}</text>
+            </a>
+          </div>
+        </form>
+      </section>
 
-        <button type="submit">submit</button>
-        <a href="#" on-click="{{ toggle-register! }}">
-          <text>~{reg-link-text}</text>
-        </a>
-      </form>
-    </section>
+      <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
+        <strong>Add new link</strong>
+        <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })) }}">
+          <!--<label>Title</label>-->
+          <div class="inputs">
+            <input type="text" id="link-title" placeholder="My Link">
+            <!--<label>URL</label>-->
+            <input type="text" id="link-url" class="last-input" placeholder="http://example.com">
+          </div>
 
-    <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
-      <strong>Add new link</strong>
-      <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })) }}">
-        <label>Title</label>
-        <input type="text" id="link-title" placeholder="My Link">
-
-        <label>URL</label>
-        <input type="text" id="link-url" placeholder="http://example.com">
-
-        <button type="submit">submit</button>
-      </form>
-    </section>
+          <div class="actions">
+            <button type="submit">submit</button>
+          </div>
+        </form>
+      </section>
+    </div>
     <section id="content">
       <ol id="links-list" class="hfeed">
         <loop-tpl bindings="{{ [{:keys [url title email domain created-at]} gnar/links] }}">
