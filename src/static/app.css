@@ -117,18 +117,19 @@ body > header ul li input[type="text"] {
   /*display: none;*/
 /*}*/
 
-#interactors form .inputs input[type="text"],
-#interactors form .inputs input[type="password"] {
+#interactors form .inputs input {
   width: 100%;
   padding: 0.5rem 1rem;
   /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 0;
   border: 1px solid #555;
+  border-top: 0px;
 }
 
 #interactors form .inputs input:first-child {
   /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 5px 5px 0 0;
+  border: 1px solid #555;
 }
 
 #interactors form .inputs input.last-input {
