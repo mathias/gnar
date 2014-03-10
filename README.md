@@ -12,8 +12,19 @@
 * Hoplon and Castra on Ring
 * [HoneySQL](https://github.com/jkk/honeysql) for Postgres database
 * Boot for tasks
+* [friend](https://github.com/cemerick/friend/) is used for its bcrypt wrapper, but is not used as the authentication system.
 
 User auth inspired by [tailrecursion/hoplon-demos](https://github.com/tailrecursion/hoplon-demos/blob/d9f2b726c5b89f4cdaf69fdaac007c69ea545599/castra-chat/src/castra/demo/http/rules.clj)
+
+## Database setup
+
+**Loading initial DB structure**
+
+1. Ensure postgresql is running.
+1. Run `createdb gnar_development`
+1. Run `psql gnar_development` to enter the Postgres shell
+1. Load the DB structure with: `\i structure.sql`
+1. It should be all set now.
 
 ## License
 

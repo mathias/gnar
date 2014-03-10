@@ -17,11 +17,11 @@
 (defc= links (:links state))
 
 (defc= loaded? (not= {} state))
-(defc= logged-in? (contains? state :current-user))
+(defc= logged-in? (contains? state :current-user-id))
 (defc= logged-out? (not logged-in?))
 (defc= show-login? (and loaded? (not logged-in?)))
 
-(defc= current-user (:current-user state))
+(defc= current-user-id (:current-user-id state))
 
 (def get-state
   (mkremote 'gnar.api.gnar/get-state state error (cell nil)))

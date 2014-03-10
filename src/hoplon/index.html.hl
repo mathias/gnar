@@ -45,9 +45,9 @@
     </header>
 
     <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
-      <form id="login" on-submit="{{ #(log-reg! (val-id :user) (val-id :password) (val-id :password-confirmation)) }}">
-        <label>Username</label>
-        <input type="text" id="user" placeholder="Username">
+      <form id="login" on-submit="{{ #(log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
+        <label>Email address</label>
+        <input type="text" id="email" placeholder="Email address">
 
         <label>Password</label>
         <input type="password" id="password" placeholder="Password">
@@ -78,7 +78,7 @@
     </section>
     <section id="content">
       <ol id="links-list" class="hfeed">
-        <loop-tpl bindings="{{ [{:keys [url title user domain created-at]} gnar/links] }}">
+        <loop-tpl bindings="{{ [{:keys [url title email domain created-at]} gnar/links] }}">
           <li>
             <article class="hentry">
               <header>
@@ -95,7 +95,7 @@
                 </abbr>
                 <address class="vcard author">
                   by
-                  <a class="url fn" href="#"><text>~{user}</text></a>
+                  <a class="url fn" href="#"><text>~{email}</text></a>
                 </address>
             </article>
           </li>

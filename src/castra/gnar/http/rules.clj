@@ -1,15 +1,8 @@
-;; Copyright (c) Alan Dipert and Micha Niskin. All rights reserved.
-;; The use and distribution terms for this software are covered by the
-;; Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
-;; which can be found in the file epl-v10.html at the root of this distribution.
-;; By using this software in any fashion, you are agreeing to be bound by
-;; the terms of this license.
-;; You must not remove this notice, or any other, from this software.
-
 (ns gnar.http.rules
   (:refer-clojure :exclude [assert])
-  (:require
-    [tailrecursion.castra :refer [ex auth *request* *session*]]))
+  (:require [tailrecursion.castra :refer [ex auth *request* *session*]]
+            [gnar.database :refer [find-user-by-email create-user-record]]
+            [cemerick.friend.credentials :as creds]))
 
 ;;; utility ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -18,25 +11,25 @@
 
 ;;; internal ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn get-pass   [db-val user]  (get-in db-val [:users user :pass]))
-(defn available? [db-val user]  (nil? (get-in db-val [:users user])))
-(defn do-login!  [user]         (swap! *session* assoc :user user))
+(defn do-login! [user_id]
+  (swap! *session* assoc :user_id user_id))
 
 ;;; public ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn allow       []      (constantly true))
-(defn deny        []      (throw (ex auth "Permission denied.")))
-(defn logout!     []      (swap! *session* assoc :user nil))
-(defn logged-in?  []      (and (contains? @*session* :user)
-                               (not (nil? (get @*session* :user)))))
-(defn self?       [user]  (assert (= (str user) (str (:user @*session*)))))
+(defn logout! []
+  (swap! *session* assoc :user_id nil))
 
-(defn register! [db user pass1 pass2]
-  (assert (= pass1 pass2) "Passwords don't match.")
-  (swap! db #(do (assert (available? % user) "Username not available.")
-                   (assoc-in % [:users user] {:pass pass1})))
-  (do-login! user))
+(defn logged-in? []
+  (and (contains? @*session* :user_id)
+       (not (nil? (get @*session* :user_id)))))
 
-(defn login! [db user pass]
-  (assert (= pass (get-pass @db user)) "Bad username/password.")
-  (do-login! user))
+(defn register! [email password password-confirmation]
+  (assert (= password password-confirmation) "Passwords don't match.")
+  (assert (empty? (find-user-by-email email)) "Username not available.") ;; assert email is available
+  (let [user (create-user-record email password)]
+    (do-login! (:id user))))
+
+(defn login! [email password]
+  (let [user (find-user-by-email email)]
+    (assert (= (creds/bcrypt-verify password (:encrypted_password user))) "Bad username/password.")
+    (do-login! (:id user))))
