@@ -35,11 +35,13 @@
   <body>
     <header>
       <h1>gnar</h1>
+      <a on-click="{{ #(swap! gnar/state assoc :search-visible (not (:search-visible gnar/state))) }}" href="javascript:void(0)">search</a>
+      <a on-click="{{ #(swap! gnar/state assoc :login-visible (not (:login-visible gnar/state))) }}" href="javascript:void(0)">login</a>
       <nav>
         <ul>
           <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
           <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
-          <li><input type="text" id="search" placeholder="search"></li>
+          <li do-toggle="{{ gnar/show-search? }}"><input type="text" id="search" placeholder="search"></li>
         </ul>
       </nav>
       <div id="flash error">

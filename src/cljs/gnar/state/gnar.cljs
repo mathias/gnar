@@ -10,7 +10,9 @@
 
 (set! cljs.core/*print-fn* #(.log js/console %))
 
-(defc state {})
+;;; hide the login and search fields by default
+(defc state {:login-visible false
+             :search-visible false})
 (defc error nil)
 (defc loading [])
 
@@ -19,7 +21,10 @@
 (defc= loaded? (not= {} state))
 (defc= logged-in? (contains? state :current-user-id))
 (defc= logged-out? (not logged-in?))
-(defc= show-login? (and loaded? (not logged-in?)))
+(defc= show-login? (and (:login-visible state)
+                        loaded?
+                        (not logged-in?)))
+(defc= show-search? (:search-visible state))
 
 (defc= current-user-id (:current-user-id state))
 
