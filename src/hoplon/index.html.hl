@@ -39,7 +39,7 @@
         <ul>
           <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
           <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
-          <li><input type="text" id="search" placeholder="search"></li>
+	  <!-- <li><input type="text" id="search" placeholder="search"></li> -->
         </ul>
       </nav>
       <div id="flash error">
