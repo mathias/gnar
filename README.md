@@ -16,7 +16,7 @@
 
 User auth inspired by [tailrecursion/hoplon-demos](https://github.com/tailrecursion/hoplon-demos/blob/d9f2b726c5b89f4cdaf69fdaac007c69ea545599/castra-chat/src/castra/demo/http/rules.clj)
 
-## Database setup
+## Setup
 
 **Loading initial DB structure**
 
@@ -25,6 +25,13 @@ User auth inspired by [tailrecursion/hoplon-demos](https://github.com/tailrecurs
 1. Run `psql gnar_development` to enter the Postgres shell
 1. Load the DB structure with: `\i structure.sql`
 1. It should be all set now.
+
+**Starting the app**
+
+1. Install [boot](https://github.com/tailrecursion/boot#getting-started)
+   if you haven't already
+1. Run `boot gnar-app`
+1. Everything should be running! (`open http://localhost:8000`)
 
 ## License
 
