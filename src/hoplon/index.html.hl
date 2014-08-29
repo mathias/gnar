@@ -50,13 +50,12 @@
       <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
         <form id="login" on-submit="{{ #(log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
           <div class="inputs">
-            <!--<label>Email address</label>-->
+
             <input type="text" id="email" placeholder="Email address">
 
-            <!--<label>Password</label>-->
             <input type="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
 
-            <!--<label>Password Confirmation</label>-->
+
             <input type="password" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
           </div>
 
@@ -72,10 +71,10 @@
       <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
         <strong>Add new link</strong>
         <form id="submit-link" on-submit="{{ #(do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })) }}">
-          <!--<label>Title</label>-->
+
           <div class="inputs">
             <input type="text" id="link-title" placeholder="My Link">
-            <!--<label>URL</label>-->
+
             <input type="text" id="link-url" class="last-input" placeholder="http://example.com">
           </div>
 
