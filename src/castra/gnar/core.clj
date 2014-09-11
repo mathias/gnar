@@ -10,9 +10,6 @@
 (def cookie-secret (or (System/getenv "COOKIE_SECRET")
                        "a 16-bit secret"))
 
-(def port (or (Integer. (System/getenv "PORT"))
-              8000))
-
 (def app
   (-> (castra 'gnar.api.gnar)
       (wrap-session {:store (cookie-store {:key cookie-secret})})
@@ -20,4 +17,5 @@
       (wrap-file-info)))
 
 (defn -main [& [port]]
-  (run-jetty #'app {:port port :join? false}))
+  (let [port (Integer. (or port (env :port) 8000))]
+    (run-jetty #'app {:port port :join? false})))
