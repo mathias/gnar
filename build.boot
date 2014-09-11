@@ -3,6 +3,8 @@
 #tailrecursion.boot.core/version "2.5.0"
 
 (set-env!
+  :project 'gnar
+  :version "0.1.0"
   :main-class 'gnar.core
   :dependencies (read-string (slurp "deps.edn"))
   :out-path     "resources/public"
