@@ -50,7 +50,7 @@
         <ul>
           <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
           <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
-	  <!-- <li><input type="text" id="search" placeholder="search"></li> -->
+    <!-- <li><input type="text" id="search" placeholder="search"></li> -->
         </ul>
       </nav>
       <div id="flash error">
@@ -60,8 +60,8 @@
     <div id="interactors">
       <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
         <form id="login" on-submit="{{ #((do
-				          (log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation))
-					  (clear-login-inputs!))) }}">
+                  (log-reg! (val-id :email) (val-id :password) (val-id :password-confirmation))
+            (clear-login-inputs!))) }}">
           <div class="inputs">
 
             <input type="text" id="email" placeholder="Email address">
@@ -84,7 +84,7 @@
       <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
         <strong>Add new link</strong>
         <form id="submit-link" on-submit="{{ #((do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })
-					           (clear-link-inputs!))) }}">
+                     (clear-link-inputs!))) }}">
 
           <div class="inputs">
             <input type="text" id="link-title" placeholder="My Link">
