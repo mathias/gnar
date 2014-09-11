@@ -1,6 +1,7 @@
 (ns gnar.core
   (:gen-class)
-  (:require [ring.adapter.jetty :refer [run-jetty]]
+  (:require [environ.core :refer [env]]
+            [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.session :refer [wrap-session]]
             [ring.middleware.session.cookie :refer [cookie-store]]
