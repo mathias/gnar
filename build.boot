@@ -35,7 +35,7 @@
         (-> "project.clj" slurp
           (.replaceAll "(:min-lein-version)\\s+(\"[0-9.]+\")" "$1 $2")
           ((partial spit "project.clj")))
-        (-> "web: java $JVM_OPTS -cp %s clojure.main -m %s"
+        (-> "web: java $JVM_OPTS -cp %s clojure.main -m %s $PORT"
           (format jar-path main-class)
           ((partial spit "Procfile")))))))
 
