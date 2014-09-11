@@ -4,7 +4,7 @@
 
 (set-env!
   :project 'gnar
-  :version "0.1.0"
+  :version "0.1.0-SNAPSHOT"
   :main-class 'gnar.core
   :dependencies (read-string (slurp "deps.edn"))
   :out-path     "resources/public"
