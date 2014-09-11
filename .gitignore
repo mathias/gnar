@@ -17,3 +17,6 @@ pom.xml.asc
 .boot
 .lein-*
 .#
+Procfile
+project.clj
+resources/
