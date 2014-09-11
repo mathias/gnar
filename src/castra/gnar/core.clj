@@ -1,7 +1,6 @@
 (ns gnar.core
   (:gen-class)
   (:require [environ.core :refer [env]]
-            [playnice.core :refer [dassoc dispatch]]
             [ring.adapter.jetty :refer [run-jetty]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.middleware.session :refer [wrap-session]]
@@ -12,21 +11,16 @@
 (def cookie-secret (or (env :cookie_secret)
                        "a 16-bit secret"))
 
-(defn serve-index [req]
-  {:status 200
-   :headers {"Content-Type" "text/html; charset=utf-8"}
-   :body (FileInputStream. "resources/public/index.html")})
-
-(def routes (-> nil
-                (dassoc "/" serve-index)))
-
-(defn app-handler [request]
-  (dispatch routes request))
+(defn wrap-dir-index [handler]
+  (fn [req]
+    (handler
+     (update-in req [:uri]
+                #(if (= "/" %) "/index.html" %)))))
 
 (def app
-  (-> app-handler
-      (castra 'gnar.api.gnar)
+  (-> (castra 'gnar.api.gnar)
       (wrap-session {:store (cookie-store {:key cookie-secret})})
+      (wrap-dir-index)
       (wrap-resource "public")
       (wrap-file-info)))
 
