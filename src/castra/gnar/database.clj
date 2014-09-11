@@ -4,8 +4,9 @@
             [honeysql.helpers :refer :all]
             [cemerick.friend.credentials :as creds]))
 
-(def db {:subprotocol "postgresql"
-         :subname "//127.0.0.1:5432/gnar_development"})
+(def db (or (System/getenv "DATABASE_URL")
+            {:subprotocol "postgresql"
+             :subname "//127.0.0.1:5432/gnar_development"}))
 
 (defn find-user-by-email [email]
   (first
