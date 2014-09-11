@@ -3,7 +3,6 @@
 /classes
 /checkouts
 /data
-/resources
 pom.xml
 pom.xml.asc
 *.jar
@@ -15,6 +14,5 @@ pom.xml.asc
 *.swn
 *.swo
 *.swp
-.boot/tmp
-/boot
+.lein-*
 .#

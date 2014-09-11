@@ -1,0 +1,185 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body > header,
+#interactors,
+#content,
+body > footer {
+  margin: 0 auto;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+ 
+.clearfix:after {
+  clear: both;
+}
+ 
+.clearfix {
+  *zoom: 1;
+}
+
+/* Fonts */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+  margin: 0;
+  color: #555;
+}
+
+h1 {
+  font-size: 1.3rem;
+  line-height: 2rem;
+}
+
+@media (min-width: 40rem) {
+  h1 {
+    font-size: 1.5rem;
+    line-height: 3rem;
+  }
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: .5rem;
+}
+
+p {
+  margin: 0 auto;
+  max-width: 30rem;
+}
+
+/* Colors and styling */
+
+body > header {
+  background-color: #EEEEEE;
+}
+
+a { 
+  color: #F18F2E;
+}
+
+/* Header-specific styles */
+body > header h1 {
+  text-align: center;
+  border-bottom: 1px solid #DDD;
+}
+
+body > header ul {
+  margin: 0;
+  -webkit-margin-before: 0;
+  -webkit-padding-start: 0;
+  list-style: none;
+}
+
+body > header ul li {
+  background-color: white;
+  border-bottom: 1px solid #DDD;
+  padding: 1rem;
+}
+
+body > header ul li input[type="text"] {
+  width: 100%;
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 0.25rem 1rem;
+}
+
+
+/* forms */
+#interactors form {
+  padding: 1rem;
+}
+
+#interactors strong {
+  display: block;
+  margin: 1rem 0 0 0;
+  text-align: center;
+}
+
+/*#interactors form label {*/
+  /*display: none;*/
+/*}*/
+
+#interactors form .inputs input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  /* top-left, top-right, bottom-right, bottom-left */
+  border-radius: 0;
+  border: 1px solid #555;
+  border-top: 0px;
+}
+
+#interactors form .inputs input:first-child {
+  /* top-left, top-right, bottom-right, bottom-left */
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #555;
+}
+
+#interactors form .inputs input.last-input {
+  /* top-left, top-right, bottom-right, bottom-left */
+  border-radius: 0 0 5px 5px;
+}
+
+#interactors form button {
+  text-align: center;
+  color: white;
+  background-color: #FCD56B;
+  border: 1px solid #FCD56B;
+  border-radius: 5px;
+  width: 100%;
+  padding: 1rem 0.25rem;
+  margin: 1rem 0;
+}
+
+#interactors form #toggle-register {
+  display: block;
+  width: 100%;
+}
+
+#interactors form .actions {
+}
+
+
+/* links list */
+#content ol {
+  list-style: decimal inside;
+  -webkit-margin-before: 0;
+  -webkit-padding-start: 0;
+  margin-bottom: 0;
+}
+
+#content ol li {
+  border-bottom: 1px solid #DDD;
+  padding: 1rem;
+}
+
+#content ol li h2 {
+  display: inline;
+}
+
+#content ol li a {
+  text-decoration: none;
+}
+
+/* footer */
+body > footer {
+  padding: 4rem 0;
+  text-align: center;
+}
