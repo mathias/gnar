@@ -8,7 +8,7 @@
             [ring.middleware.file-info :refer [wrap-file-info]]
             [tailrecursion.castra.handler :refer [castra]]))
 
-(def cookie-secret (or (env :cookie_secret)
+(def cookie-secret (or (env :cookie-secret)
                        "a 16-bit secret"))
 
 (defn wrap-dir-index [handler]
