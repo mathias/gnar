@@ -4,26 +4,6 @@
             [honeysql.helpers :refer :all]
             [cemerick.friend.credentials :as creds]))
 
-;; (def users {"mathiasx" {:pass "password"}
-;;             "devin" {:pass "password"}
-;;             "josh" {:pass "password"}})
-
-;; (def links [{:url "http://www.spritzinc.com/"
-;;              :title "Spritz (read things fast/comfortably"
-;;              :user "josh"
-;;              :domain "sprintzinc.com"
-;;              :created-at "4 days ago"}
-;;             {:url "http://www.youtube.com/watch?feature=player_detailpage&v=2rKEveL55TY"
-;;              :title "The Micro-Service Architecture"
-;;              :user "devin"
-;;              :domain "youtube.com"
-;;              :created-at "1 day ago"}
-;;             {:url "http://tech.ftbpro.com/post/78195641092/ruby-2-1-our-experience"
-;;              :title "Ruby 2.1 - Our Experience (ed note: big improvements, some incompat issues)"
-;;              :domain "thbpro.com"
-;;              :user "mathiasx"
-;;              :created-at "3 hours ago"}])
-
 (def db {:subprotocol "postgresql"
          :subname "//127.0.0.1:5432/gnar_development"})
 
