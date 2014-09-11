@@ -5,8 +5,6 @@
       [gnar.state.gnar :as gnar]
       [tailrecursion.hoplon.reload :refer [reload-all]]))
 
-;;  (reload-all 25)
-
   (cell= (print (:trace gnar/error)))
   (defc= error-message (:message gnar/error))
 
