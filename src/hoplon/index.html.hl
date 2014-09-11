@@ -13,6 +13,7 @@
   (def log-reg! #(if @register?
                      (gnar/register! %1 %2 %3)
                      (gnar/login! %1 %2)))
+
   (defn clear-login-inputs! []
     (do
      (do! (by-id :email) :value "")
