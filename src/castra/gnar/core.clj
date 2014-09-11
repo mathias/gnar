@@ -8,10 +8,12 @@
             [tailrecursion.castra.handler :refer [castra]]))
 
 (def server (atom nil))
+(def cookie-secret (or (System/getenv "COOKIE_SECRET")
+                       "a 16-bit secret"))
 
 (defn app [port public-path]
   (-> (castra 'gnar.api.gnar)
-      (wrap-session {:store (cookie-store {:key "a 16-byte secret"})})
+      (wrap-session {:store (cookie-store {:key cookie-secret})})
       (wrap-file public-path)
       (wrap-file-info)
       (run-jetty {:join? false :port port})))
