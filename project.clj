@@ -14,7 +14,8 @@
   [hearst "0.1.1-SNAPSHOT"]
   [com.cemerick/url "0.1.1"]
   [com.cemerick/friend "0.2.0"]
-  [environ "1.0.0"]]
+  [environ "1.0.0"]
+  [playnice "1.0.1"]]
  :source-paths
  ["src/castra" "src/hoplon" "src/cljs" "resources"]
  :min-lein-version "2.0.0"
