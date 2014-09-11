@@ -1,7 +1,7 @@
 (ns gnar.http.rules
   (:refer-clojure :exclude [assert])
   (:require [tailrecursion.castra :refer [ex auth *request* *session*]]
-            [gnar.database :refer [find-user-by-email create-user-record]]
+            [gnar.database :refer [find-user-by-username find-user-by-email create-user-record]]
             [cemerick.friend.credentials :as creds]))
 
 ;;; utility ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -23,13 +23,14 @@
   (and (contains? @*session* :user_id)
        (not (nil? (get @*session* :user_id)))))
 
-(defn register! [email password password-confirmation]
+(defn register! [username email password password-confirmation]
   (assert (= password password-confirmation) "Passwords don't match.")
-  (assert (empty? (find-user-by-email email)) "Username not available.") ;; assert email is available
-  (let [user (create-user-record email password)]
+  (assert (empty? (find-user-by-username username)) "Username not available.")
+  (assert (empty? (find-user-by-email email)) "Email address already has been registered. Did you forget your password?")
+  (let [user (create-user-record username email password)]
     (do-login! (:id user))))
 
-(defn login! [email password]
-  (let [user (find-user-by-email email)]
+(defn login! [username password]
+  (let [user (find-user-by-username username)]
     (assert (= (creds/bcrypt-verify password (:encrypted_password user))) "Bad username/password.")
     (do-login! (:id user))))

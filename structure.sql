@@ -71,6 +71,7 @@ ALTER SEQUENCE links_id_seq OWNED BY links.id;
 
 CREATE TABLE users (
     id integer NOT NULL,
+    username character varying(255) DEFAULT ''::character varying NOT NULL,
     email character varying(255) DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
     referred_by_user_id integer NOT NULL,
@@ -132,8 +133,10 @@ ALTER TABLE ONLY users
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
+
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
+CREATE UNIQUE INDEX index_users_on_username ON users USING btree (username);
 
 
 ALTER TABLE links ADD CONSTRAINT unique_link_urls UNIQUE (url);

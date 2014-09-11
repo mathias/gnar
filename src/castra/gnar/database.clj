@@ -8,6 +8,13 @@
             {:subprotocol "postgresql"
              :subname "//127.0.0.1:5432/gnar_development"}))
 
+(defn find-user-by-username [username]
+  (first
+   (j/query db (-> (select :*)
+                   (from :users)
+                   (where [:= :username username])
+                   (limit 1)
+                   (sql/format)))))
 (defn find-user-by-email [email]
   (first
    (j/query db (-> (select :*)
@@ -29,15 +36,16 @@
 (defn now-timestamp []
   (java.sql.Timestamp. (.getTime (java.util.Date.))))
 
-(defn create-user-record [email password]
-  (j/insert! db :users {:email email
+(defn create-user-record [username email password]
+  (j/insert! db :users {:username username
+                        :email email
                         :encrypted_password (creds/hash-bcrypt password)
                         :referred_by_user_id 0
                         :created_at (now-timestamp)}))
 
 (defn links-newest-first []
   (j/query db
-           (-> (select :l.title :l.url :l.domain :l.user_id :l.created_at :users.email)
+           (-> (select :l.title :l.url :l.domain :l.user_id :l.created_at :users.username)
                (from [:links :l])
                (order-by [:created_at :desc])
                (join :users [:= :l.user_id :users.id])
