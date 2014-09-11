@@ -29,6 +29,8 @@
 
   (def reg-link-text  (cell= (if register? "log in" "register")))
   (def login-button-text  (cell= (if (not register?) "log in" "register")))
+  (defn username-href [username] (str "/#/users/" (deref username)))
+
   (gnar/init)
 </script>
 
@@ -119,7 +121,7 @@
                 </abbr>
                 <address class="vcard author">
                   by
-                  <a class="url fn" do-href="#/users/{{ username }}"><text>~{username}</text></a>
+                  <a class="url fn" do-href="{{(username-href username)}}"><text>~{username}</text></a>
                 </address>
             </article>
           </li>
