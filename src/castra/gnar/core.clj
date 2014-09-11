@@ -20,9 +20,9 @@
 (def app
   (-> (castra 'gnar.api.gnar)
       (wrap-session {:store (cookie-store {:key cookie-secret})})
-      (wrap-dir-index)
       (wrap-resource "public")
-      (wrap-file-info)))
+      (wrap-file-info)
+      (wrap-dir-index)))
 
 (defn -main [& [port]]
   (let [port (Integer. (or port (env :port) 8000))]
