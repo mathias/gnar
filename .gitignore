@@ -14,5 +14,6 @@ pom.xml.asc
 *.swn
 *.swo
 *.swp
+.boot
 .lein-*
 .#
