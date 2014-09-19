@@ -21,11 +21,11 @@ a {
   content: " ";
   display: table;
 }
- 
+
 .clearfix:after {
   clear: both;
 }
- 
+
 .clearfix {
   *zoom: 1;
 }
@@ -71,7 +71,7 @@ body > header {
   background-color: #EEEEEE;
 }
 
-a { 
+a {
   color: #F18F2E;
 }
 
@@ -113,26 +113,28 @@ body > header ul li input[type="text"] {
   text-align: center;
 }
 
-/*#interactors form label {*/
-  /*display: none;*/
-/*}*/
-
-#interactors form .inputs input {
+#interactors form .inputs fieldset input {
   width: 100%;
   padding: 0.5rem 1rem;
   /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 0;
   border: 1px solid #555;
-  border-top: 0px;
+  border-top: 0;
 }
 
-#interactors form .inputs input:first-child {
+#interactors form .inputs fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#interactors form .inputs fieldset:first-child input {
   /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 5px 5px 0 0;
   border: 1px solid #555;
 }
 
-#interactors form .inputs input.last-input {
+#interactors form .inputs fieldset input.last-input {
   /* top-left, top-right, bottom-right, bottom-left */
   border-radius: 0 0 5px 5px;
 }
