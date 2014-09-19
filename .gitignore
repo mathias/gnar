@@ -20,3 +20,7 @@ pom.xml.asc
 Procfile
 project.clj
 resources/
+
+
+# Mac cruft
+.DS_Store

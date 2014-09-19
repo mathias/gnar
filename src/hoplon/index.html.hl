@@ -66,18 +66,29 @@
                   (log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation))
             (clear-login-inputs!))) }}">
           <div class="inputs">
-            <input type="text" id="username" placeholder="Username">
+	    <fieldset>
+	      <label name="username" hidden>Username</label>
+              <input type="text" name="username" id="username" placeholder="Username">
+	    </fieldset>
 
-            <input type="text" id="email" placeholder="Email" do-toggle="{{ register? }}">
+	    <fieldset>
+	      <label name="email" hidden>Email address</label>
+              <input type="text" name="email" id="email" placeholder="Email" do-toggle="{{ register? }}">
+	    </fieldset>
 
-            <input type="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
+	    <fieldset>
+	      <label name="password" hidden>Password</label>
+              <input type="password" name="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
+	    </fieldset>
 
-
-            <input type="password" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
+	    <fieldset>
+	      <label name="password-confirmation" hidden>Password confirmation</label>
+              <input type="password" name="password-confirmation" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
+	    </fieldset>
           </div>
 
           <div class="actions">
-            <button type="submit"><text>~{login-button-text}</text></button>
+            <button type="submit" id="login-register-button"><text>~{login-button-text}</text></button>
             <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
               <text>~{reg-link-text}</text>
             </a>
@@ -91,13 +102,19 @@
                      (clear-link-inputs!))) }}">
 
           <div class="inputs">
-            <input type="text" id="link-title" placeholder="My Link">
+	    <fieldset>
+	      <label name="link-title" hidden>Link Title</label>
+              <input type="text" name="link-title" id="link-title" placeholder="My Link">
+	    </fieldset>
 
-            <input type="text" id="link-url" class="last-input" placeholder="http://example.com">
+	    <fieldset>
+	      <label name="link-url" hidden>Link URL</label>
+              <input type="text" name="link-url" id="link-url" class="last-input" placeholder="http://example.com">
+	    </fieldset>
           </div>
 
           <div class="actions">
-            <button type="submit">submit</button>
+            <button type="submit" name="submit-link-button">submit</button>
           </div>
         </form>
       </section>
