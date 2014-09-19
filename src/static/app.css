@@ -21,11 +21,11 @@ a {
   content: " ";
   display: table;
 }
- 
+
 .clearfix:after {
   clear: both;
 }
- 
+
 .clearfix {
   *zoom: 1;
 }
@@ -71,7 +71,7 @@ body > header {
   background-color: #EEEEEE;
 }
 
-a { 
+a {
   color: #F18F2E;
 }
 
