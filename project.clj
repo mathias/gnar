@@ -4,7 +4,7 @@
  :dependencies
  [[org.clojure/clojure "1.6.0"]
   [tailrecursion/boot.core "2.5.0" :exclusions [[org.clojure/clojure]]]
-  [tailrecursion/hoplon "5.10.23"]
+  [tailrecursion/hoplon "5.10.24"]
   [tailrecursion/boot.task "2.2.1"]
   [tailrecursion/boot.notify "2.0.2"]
   [tailrecursion/boot.ring "0.2.1"]
@@ -17,7 +17,15 @@
   [environ "1.0.0"]
   [playnice "1.0.1"]]
  :source-paths
- ["src/castra" "src/hoplon" "src/cljs" "resources"]
+ [".boot/tmp/91426/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
+  ".boot/tmp/91426/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
+  "src/castra"
+  "src/hoplon"
+  ".boot/tmp/91426/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
+  "src/cljs"
+  ".boot/tmp/91426/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
+  "resources"
+  ".boot/tmp/91426/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"]
  :min-lein-version "2.0.0"
  :uberjar-name
  "gnar-standalone.jar"
