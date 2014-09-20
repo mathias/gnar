@@ -17,15 +17,7 @@
   [environ "1.0.0"]
   [playnice "1.0.1"]]
  :source-paths
- [".boot/tmp/25620/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"
-  ".boot/tmp/25620/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
-  "src/castra"
-  "src/hoplon"
-  ".boot/tmp/25620/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
-  ".boot/tmp/25620/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
-  "src/cljs"
-  ".boot/tmp/25620/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
-  "resources"]
+ ["src/castra" "src/hoplon" "src/cljs" "resources"]
  :min-lein-version "2.0.0"
  :uberjar-name
  "gnar-standalone.jar"
