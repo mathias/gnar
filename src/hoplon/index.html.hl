@@ -57,101 +57,111 @@
     <header>
       <h1>gnar</h1>
       <nav>
-        <ul>
-          <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
-          <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
+	<ul>
+	  <li do-toggle="{{ (cell= false) }}"><a href="#">Home</a></li>
+	  <li do-toggle="{{ gnar/logged-in? }}"><a href="javascript:void(0);" on-click="{{ #(do (gnar/logout!)) }}">Logout</a></li>
     <!-- <li><input type="text" id="search" placeholder="search"></li> -->
-        </ul>
+	</ul>
       </nav>
       <div id="flash error">
-        <text>~{error-message}</text>
+	<text>~{error-message}</text>
       </div>
     </header>
     <div id="interactors">
       <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
-        <form id="login" on-submit="{{ #(log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
-          <div class="inputs">
+	<form id="login" on-submit="{{ #(log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
+	  <div class="inputs">
 	    <fieldset>
 	      <label name="username" hidden>Username</label>
-              <input type="text" name="username" id="username" placeholder="Username">
+	      <input type="text" name="username" id="username" placeholder="Username">
 	    </fieldset>
 
 	    <fieldset>
 	      <label name="email" hidden>Email address</label>
-              <input type="text" name="email" id="email" placeholder="Email" do-toggle="{{ register? }}">
+	      <input type="text" name="email" id="email" placeholder="Email" do-toggle="{{ register? }}">
 	    </fieldset>
 
 	    <fieldset>
 	      <label name="password" hidden>Password</label>
-              <input type="password" name="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
+	      <input type="password" name="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
 	    </fieldset>
 
 	    <fieldset>
 	      <label name="password-confirmation" hidden>Password confirmation</label>
-              <input type="password" name="password-confirmation" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
+	      <input type="password" name="password-confirmation" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
 	    </fieldset>
-          </div>
+	  </div>
 
-          <div class="actions">
-            <button type="submit" id="login-register-button"><text>~{login-button-text}</text></button>
-            <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
-              <text>~{register-link-text}</text>
-            </a>
-          </div>
-        </form>
+	  <div class="actions">
+	    <button type="submit" id="login-register-button"><text>~{login-button-text}</text></button>
+	    <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
+	      <text>~{register-link-text}</text>
+	    </a>
+	  </div>
+	</form>
       </section>
 
       <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
-        <strong>Add new link</strong>
-        <form id="submit-link" on-submit="{{ #(submit-link! {:title (val-id :link-title) :url (val-id :link-url) }) }}">
+	<strong>Add new link</strong>
+	<form id="submit-link" on-submit="{{ #(submit-link! {:title (val-id :link-title) :url (val-id :link-url) }) }}">
 
-          <div class="inputs">
+	  <div class="inputs">
 	    <fieldset>
 	      <label name="link-title" hidden>Link Title</label>
-              <input type="text" name="link-title" id="link-title" placeholder="My Link">
+	      <input type="text" name="link-title" id="link-title" placeholder="My Link">
 	    </fieldset>
 
 	    <fieldset>
 	      <label name="link-url" hidden>Link URL</label>
-              <input type="text" name="link-url" id="link-url" class="last-input" placeholder="http://example.com">
+	      <input type="text" name="link-url" id="link-url" class="last-input" placeholder="http://example.com">
 	    </fieldset>
-          </div>
+	  </div>
 
-          <div class="actions">
-            <button type="submit" name="submit-link-button">submit</button>
-          </div>
-        </form>
+	  <div class="actions">
+	    <button type="submit" name="submit-link-button">submit</button>
+	  </div>
+	</form>
       </section>
     </div>
     <section id="content">
       <ol id="links-list" class="hfeed">
-        <loop-tpl bindings="{{ [{:keys [url title username domain created-at]} gnar/links] }}">
-          <li>
-            <article class="hentry">
-              <header>
-                <h2 class="entry-title">
-                  <a do-href="{{ url }}" rel="bookmark">
-                    <text>~{title}</text>
-                  </a>
-                </h2>
-                (<text>~{domain}</text>)
-              </header>
-              <footer class="post-info">
-                <abbr class="published" title="2005-10-10T14:07:00-07:00">
-                  <text>~{created-at}</text>
-                </abbr>
-                <address class="vcard author">
-                  by
-                  <a class="url fn" do-href="{{(username-href username)}}"><text>~{username}</text></a>
-                </address>
-            </article>
-          </li>
-        </loop-tpl>
+	<loop-tpl bindings="{{ [{:keys [url title username domain created-at]} gnar/links] }}">
+	  <li>
+	    <article class="hentry">
+	      <header>
+		<h2 class="entry-title">
+		  <a do-href="{{ url }}" rel="bookmark">
+		    <text>~{title}</text>
+		  </a>
+		</h2>
+		(<text>~{domain}</text>)
+	      </header>
+	      <footer class="post-info">
+		<abbr class="published" title="2005-10-10T14:07:00-07:00">
+		  <text>~{created-at}</text>
+		</abbr>
+		<address class="vcard author">
+		  by
+		  <a class="url fn" do-href="{{(username-href username)}}"><text>~{username}</text></a>
+		</address>
+	    </article>
+	  </li>
+	</loop-tpl>
 
       </ol>
     </section>
     <footer>
       Copyright 2014 <a href="http://blog.mattgauger.com">Matt Gauger</a>.
     </footer>
+
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-38944731-2', 'auto');
+      ga('send', 'pageview');
+    </script>
   </body>
 </html>
