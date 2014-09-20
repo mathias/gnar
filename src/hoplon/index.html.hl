@@ -10,9 +10,6 @@
 
   (def register? (cell nil))
   (def toggle-register! #(swap! register? not))
-  (def log-reg! #(if @register?
-                     (gnar/register! %1 %2 %3 %4)
-                     (gnar/login! %1 %2)))
 
   (defn clear-login-inputs! []
     (do
@@ -26,8 +23,20 @@
      (do! (by-id :link-title) :value "")
      (do! (by-id :link-url) :value "")))
 
+  (defn log-reg!
+    ([username password]
+      (do (gnar/login! username password) (clear-login-inputs!)))
+    ([username email password password-confirmation]
+      (do
+        (gnar/register! username email password password-confirmation)
+        (clear-login-inputs!))))
 
-  (def reg-link-text  (cell= (if register? "log in" "register")))
+  (defn submit-link! [link-data]
+    (do
+      (gnar/submit-link! link-data)
+      (clear-link-inputs!)))
+
+  (def register-link-text  (cell= (if register? "log in" "register")))
   (def login-button-text  (cell= (if (not register?) "log in" "register")))
   (defn username-href [username] (str "/#/users/" (deref username)))
 
@@ -62,9 +71,7 @@
     </header>
     <div id="interactors">
       <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
-        <form id="login" on-submit="{{ #((do
-                  (log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation))
-            (clear-login-inputs!))) }}">
+        <form id="login" on-submit="{{ #(log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
           <div class="inputs">
 	    <fieldset>
 	      <label name="username" hidden>Username</label>
@@ -90,7 +97,7 @@
           <div class="actions">
             <button type="submit" id="login-register-button"><text>~{login-button-text}</text></button>
             <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
-              <text>~{reg-link-text}</text>
+              <text>~{register-link-text}</text>
             </a>
           </div>
         </form>
@@ -98,8 +105,7 @@
 
       <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
         <strong>Add new link</strong>
-        <form id="submit-link" on-submit="{{ #((do (gnar/submit-link! {:title (val-id :link-title) :url (val-id :link-url) })
-                     (clear-link-inputs!))) }}">
+        <form id="submit-link" on-submit="{{ #(submit-link! {:title (val-id :link-title) :url (val-id :link-url) }) }}">
 
           <div class="inputs">
 	    <fieldset>
