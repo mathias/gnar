@@ -50,4 +50,4 @@
 (deftask production
   "Compile application with Google Closure advanced optimizations."
   []
-  (hoplon {:optimizations :advanced}))
+  (hoplon {:optimizations :whitespace}))
