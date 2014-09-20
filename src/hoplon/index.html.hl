@@ -24,12 +24,10 @@
      (do! (by-id :link-url) :value "")))
 
   (defn log-reg!
-    ([username password]
+    [username email password password-confirmation]
+    (if @register?
+      (do (gnar/register! username email password password-confirmation) (clear-login-inputs!)))
       (do (gnar/login! username password) (clear-login-inputs!)))
-    ([username email password password-confirmation]
-      (do
-        (gnar/register! username email password password-confirmation)
-        (clear-login-inputs!))))
 
   (defn submit-link! [link-data]
     (do
