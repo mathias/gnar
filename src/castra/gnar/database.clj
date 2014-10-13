@@ -44,6 +44,9 @@
                         :referred_by_user_id 0
                         :created_at (now-timestamp)}))
 
+(defn delete-user [username]
+  (j/delete! db :users ["username = ?" username]))
+
 (defn links-newest-first []
   (j/query db
            (-> (select :l.title :l.url :l.domain :l.user_id :l.created_at :users.username)

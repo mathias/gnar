@@ -11,8 +11,9 @@
 
 ;;; internal ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn do-login! [user_id]
-  (swap! *session* assoc :user_id user_id))
+(defn do-login! [user]
+  (swap! *session* assoc :user_id (:user_id user))
+  (dissoc user :password))
 
 ;;; public ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -28,12 +29,12 @@
   (assert (> (count password) 8) "Password must be at least 8 characters long.")
   (assert (empty? (find-user-by-username username)) "Username not available.")
   (assert (empty? (find-user-by-email email)) "Email address has already been registered.")
-  (let [user (create-user-record username email password)]
-    (do-login! (:id user))))
+  (let [user (first (create-user-record username email password))]
+    (do-login! user)))
 
 (def creds-checker (partial creds/bcrypt-credential-fn find-user-by-username))
 
 (defn login! [username password]
   (if-let [user (creds-checker {:username username :password password})]
-    user
+    (do-login! user)
     (assert false "Bad username/password.")))
