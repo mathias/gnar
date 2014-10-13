@@ -24,17 +24,16 @@
        (not (nil? (get @*session* :user_id)))))
 
 (defn register! [username email password password-confirmation]
-  (assert false "Registration disabled.")
-  (comment
-    (assert (= password password-confirmation) "Passwords don't match.")
-    (assert (empty? (find-user-by-username username)) "Username not available.")
-    (assert (empty? (find-user-by-email email)) "Email address already has been registered. Did you forget your password?")
-    (let [user (create-user-record username email password)]
-      (do-login! (:id user)))))
+  (assert (= password password-confirmation) "Passwords don't match.")
+  (assert (> (count password) 8) "Password must be at least 8 characters long.")
+  (assert (empty? (find-user-by-username username)) "Username not available.")
+  (assert (empty? (find-user-by-email email)) "Email address has already been registered.")
+  (let [user (create-user-record username email password)]
+    (do-login! (:id user))))
+
+(def creds-checker (partial creds/bcrypt-credential-fn find-user-by-username))
 
 (defn login! [username password]
-  (assert false "Logins disabled.")
-  (comment
-    (let [user (find-user-by-username username)]
-      (assert (= (creds/bcrypt-verify password (:encrypted_password user))) "Bad username/password.")
-      (do-login! (:id user)))))
+  (if-let [user (creds-checker {:username username :password password})]
+    user
+    (assert false "Bad username/password.")))

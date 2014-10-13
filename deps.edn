@@ -9,4 +9,5 @@
  [com.cemerick/url "0.1.1"]
  [com.cemerick/friend "0.2.0"]
  [environ "1.0.0"]
- [playnice "1.0.1"]]
+ [playnice "1.0.1"]
+ [midje "1.6.3"]]

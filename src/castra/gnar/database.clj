@@ -15,6 +15,7 @@
                    (where [:= :username username])
                    (limit 1)
                    (sql/format)))))
+
 (defn find-user-by-email [email]
   (first
    (j/query db (-> (select :*)
@@ -39,7 +40,7 @@
 (defn create-user-record [username email password]
   (j/insert! db :users {:username username
                         :email email
-                        :encrypted_password (creds/hash-bcrypt password)
+                        :password (creds/hash-bcrypt password)
                         :referred_by_user_id 0
                         :created_at (now-timestamp)}))
 
@@ -49,5 +50,5 @@
                (from [:links :l])
                (order-by [:created_at :desc])
                (join :users [:= :l.user_id :users.id])
-               (limit 100)
+               (limit 24)
                (sql/format))))

@@ -73,7 +73,7 @@ CREATE TABLE users (
     id integer NOT NULL,
     username character varying(255) DEFAULT ''::character varying NOT NULL,
     email character varying(255) DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
+    password character varying(255) DEFAULT ''::character varying NOT NULL,
     referred_by_user_id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
