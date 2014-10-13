@@ -18,14 +18,14 @@
   [playnice "1.0.1"]
   [midje "1.6.3"]]
  :source-paths
- [".boot/tmp/46863/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
-  ".boot/tmp/46863/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
-  ".boot/tmp/46863/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"
+ [".boot/tmp/47929/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
+  ".boot/tmp/47929/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
+  ".boot/tmp/47929/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
+  ".boot/tmp/47929/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"
+  ".boot/tmp/47929/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
   "src/castra"
   "src/hoplon"
   "src/cljs"
-  ".boot/tmp/46863/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
-  ".boot/tmp/46863/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
   "resources"]
  :min-lein-version "2.0.0"
  :uberjar-name
