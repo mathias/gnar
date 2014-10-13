@@ -15,16 +15,17 @@
   [com.cemerick/url "0.1.1"]
   [com.cemerick/friend "0.2.0"]
   [environ "1.0.0"]
-  [playnice "1.0.1"]]
+  [playnice "1.0.1"]
+  [midje "1.6.3"]]
  :source-paths
- [".boot/tmp/41946/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
+ [".boot/tmp/45162/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"
   "src/castra"
-  ".boot/tmp/41946/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
-  ".boot/tmp/41946/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
+  ".boot/tmp/45162/_COLON_tailrecursion.hoplon.boot_SLASH_cljs_out/dir.tmp"
+  ".boot/tmp/45162/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
   "src/hoplon"
-  ".boot/tmp/41946/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src_inc_css/dir.tmp"
+  ".boot/tmp/45162/_COLON_tailrecursion.boot.task_SLASH_cljs_stage/dir.tmp"
   "src/cljs"
-  ".boot/tmp/41946/_COLON_tailrecursion.hoplon.boot_SLASH_hoplon_src/dir.tmp"
+  ".boot/tmp/45162/_COLON_tailrecursion.hoplon.boot_SLASH_public_out/dir.tmp"
   "resources"]
  :min-lein-version "2.0.0"
  :uberjar-name
