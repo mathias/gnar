@@ -12,7 +12,7 @@
 ;;; internal ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn do-login! [user]
-  (swap! *session* assoc :user_id (:user_id user))
+  (swap! *session* assoc :user_id (:id user))
   (dissoc user :password))
 
 ;;; public ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
