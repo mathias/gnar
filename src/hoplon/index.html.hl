@@ -31,8 +31,9 @@
 
   (defn submit-link! [link-data]
     (do
-      (gnar/submit-link! link-data)
-      (clear-link-inputs!)))
+      (when gnar/logged-in?
+        (gnar/submit-link! link-data)
+        (clear-link-inputs!))))
 
   (def register-link-text  (cell= (if register? "log in" "register")))
   (def login-button-text  (cell= (if (not register?) "log in" "register")))
@@ -79,39 +80,6 @@
       </div>
     </header>
     <div id="interactors">
-      <section id="login-pane" do-toggle="{{ gnar/show-login? }}">
-	<form id="login" on-submit="{{ #(log-reg! (val-id :username) (val-id :email) (val-id :password) (val-id :password-confirmation)) }}">
-	  <div class="inputs">
-	    <fieldset>
-	      <label name="username" hidden>Username</label>
-	      <input type="text" name="username" id="username" placeholder="Username">
-	    </fieldset>
-
-	    <fieldset>
-	      <label name="email" hidden>Email address</label>
-	      <input type="text" name="email" id="email" placeholder="Email" do-toggle="{{ register? }}">
-	    </fieldset>
-
-	    <fieldset>
-	      <label name="password" hidden>Password</label>
-	      <input type="password" name="password" id="password" placeholder="Password" do-class="{{ (cell= {:last-input (not register? )}) }}">
-	    </fieldset>
-
-	    <fieldset>
-	      <label name="password-confirmation" hidden>Password confirmation</label>
-	      <input type="password" name="password-confirmation" id="password-confirmation" do-toggle="{{ register? }}" placeholder="Password Confirmation" do-class="{{ (cell= {:last-input register?}) }}">
-	    </fieldset>
-	  </div>
-
-	  <div class="actions">
-	    <button type="submit" id="login-register-button"><text>~{login-button-text}</text></button>
-	    <a href="javascript:void(0);" id="toggle-register" on-click="{{ toggle-register! }}">
-	      <text>~{register-link-text}</text>
-	    </a>
-	  </div>
-	</form>
-      </section>
-
       <section id="add-new-link" do-toggle="{{ gnar/logged-in? }}">
 	<strong>Add new link</strong>
 	<form id="submit-link" on-submit="{{ #(submit-link! {:title (val-id :link-title) :url (val-id :link-url) }) }}">

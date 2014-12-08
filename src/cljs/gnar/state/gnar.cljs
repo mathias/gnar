@@ -26,11 +26,11 @@
 (def get-state
   (mkremote 'gnar.api.gnar/get-state state error (cell nil)))
 
-(def register!
-  (mkremote 'gnar.api.gnar/register state error loading))
+;; (def register!
+;;   (mkremote 'gnar.api.gnar/register state error loading))
 
-(def login!
-  (mkremote 'gnar.api.gnar/login state error loading))
+;; (def login!
+;;   (mkremote 'gnar.api.gnar/login state error loading))
 
 (def logout!
   (mkremote 'gnar.api.gnar/logout state error loading))

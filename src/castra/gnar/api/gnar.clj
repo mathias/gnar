@@ -30,13 +30,13 @@
       (merge links {:current-user-id current-user-id})
       links)))
 
-(defn register [username email password password-confirmation]
-  {:rpc/pre [(register! username email password password-confirmation)]}
-  (get-state))
+;; (defn register [username email password password-confirmation]
+;;   {:rpc/pre [(register! username email password password-confirmation)]}
+;;   (get-state))
 
-(defn login [username password]
-  {:rpc/pre [(login! username password)]}
-  (get-state))
+;; (defn login [username password]
+;;   {:rpc/pre [(login! username password)]}
+;;   (get-state))
 
 (defn logout []
   {:rpc/pre [(logout!)]}
