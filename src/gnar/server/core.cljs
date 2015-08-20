@@ -5,12 +5,13 @@
 
 (def express (node/require "express"))
 
-(defn say-hello! [req res]
-  (.send res "Hello world!"))
+(defn index [req res]
+  (.send res "hello world"))
 
 (defn -main []
   (let [app (express)]
-    (.get app "/" say-hello!)
+    (.get app "/" index)
+    (.use app (.static express "resources/public"))
     (.listen app 3000 (fn []
                         (println "Server started on port 3000")))))
 

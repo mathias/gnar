@@ -42,7 +42,7 @@
   )
 
 (deftask build-dev-server []
-  (set-env! :source-paths #{"src/boot_with_node/"})
+  (set-env! :source-paths #{"src/"})
   (cljs :optimizations :none
         :compiler-options {:target :nodejs}))
 
