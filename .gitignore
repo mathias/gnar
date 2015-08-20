@@ -25,3 +25,6 @@ resources/
 
 # Mac cruft
 .DS_Store
+
+# node /npm
+npm-debug.log

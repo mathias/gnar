@@ -1,0 +1,2 @@
+{:require [gnar.server.core]
+ :compiler-options {:target :nodejs}}
