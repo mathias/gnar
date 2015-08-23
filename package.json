@@ -1,0 +1,28 @@
+{
+  "name": "gnar",
+  "version": "1.0.0",
+  "description": "**Goals**",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathias/gnar.git"
+  },
+  "author": "Matt Gauger <matt.gauger@gmail.com>",
+  "license": "EPL-1.0",
+  "bugs": {
+    "url": "https://github.com/mathias/gnar/issues"
+  },
+  "homepage": "https://github.com/mathias/gnar#readme",
+  "dependencies": {
+    "connect-redis": "^2.4.1",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3"
+  }
+}
