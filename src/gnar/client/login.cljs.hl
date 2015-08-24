@@ -1,0 +1,14 @@
+(page "login.html")
+
+(html
+ (head
+  (title "Login - gnar"))
+ (body
+  (form {:action "/login" :method "post"}
+        (fieldset
+         (label "Username:")
+         (input {:type "text" :name "username"}))
+        (fieldset
+         (label "Password:")
+         (input {:type "password" :name "password"}))
+        (input {:type "submit" :value "Submit"}))))

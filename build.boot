@@ -15,7 +15,7 @@
   '[adzerk.boot-cljs      :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload    :refer [reload]]
-  '[crisptrutski.boot-cljs-test  :refer [test-cljs]]
+  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[tailrecursion.boot-hoplon :refer :all])
 
 (deftask auto-test []
@@ -24,29 +24,10 @@
         (speak)
         (test-cljs)))
 
-(deftask client []
-  (set-env! :source-paths #{"src"})
-  (comp (watch)
-        (speak)
-        (reload :on-jsload 'gnar.client.core/main)
-        (cljs-repl)
-        (hoplon :pretty-print true
-                :source-map true
-                :optimizations :whitespace)))
-
-(deftask build-client-for-production []
-  (set-env! :source-paths #{"src/gnar/client"})
-  (comp (hoplon :optimizations :advanced)))
-
-(deftask server []
-  )
-
-(deftask build-dev-server []
+(deftask build-dev []
   (set-env! :source-paths #{"src/"})
-  (cljs :optimizations :none
-        :compiler-options {:target :nodejs}))
-
-(deftask watch-server []
-  (comp (watch)
-        (speak)
-        (build-dev-server)))
+  (comp
+   (hoplon :pretty-print true
+           :source-map true
+           :optimizations :whitespace)
+   (cljs :optimizations :none)))

@@ -38,6 +38,16 @@
 1. Run `boot gnar-app`
 1. Everything should be running! (`open http://localhost:3000`)
 
+## Troubleshooting
+
+### Permgen errors
+
+Solution: Set the following ENV var:
+
+```bash
+export BOOT_JVM_OPTIONS="-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1 -Xmx2g -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xverify:none"
+```
+
 ## License
 
 Copyright © 2015 Matt Gauger

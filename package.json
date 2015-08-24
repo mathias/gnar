@@ -8,6 +8,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,10 @@
   "dependencies": {
     "connect-redis": "^2.4.1",
     "express": "^4.13.3",
-    "express-session": "^1.11.3"
+    "express-session": "^1.11.3",
+    "knex": "^0.8.6",
+    "passport": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "pg": "^4.4.1"
   }
 }
