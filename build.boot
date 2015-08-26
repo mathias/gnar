@@ -30,4 +30,5 @@
    (hoplon :pretty-print true
            :source-map true
            :optimizations :whitespace)
-   (cljs :optimizations :none)))
+   (cljs :optimizations :none
+         :source-map true)))
