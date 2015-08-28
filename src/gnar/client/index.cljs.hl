@@ -1,0 +1,9 @@
+(page "index.html")
+
+(html
+ (head
+  (title "gnar"))
+ (body
+  (header
+   (h1 "gnar")
+   (a :href "/login" "Login"))))

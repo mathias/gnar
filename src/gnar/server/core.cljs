@@ -19,15 +19,15 @@
 (def session-store (RedisSessionStore. #js {:client redis-client}))
 (def session-config #js {:store session-store
                          :secret session-secret})
+(def cookie-parser (node/require "cookie-parser"))
+(def body-parser (node/require "body-parser"))
+(def connect-ensure-login (node/require "connect-ensure-login"))
 (def passport (node/require "passport"))
 (def Strategy (.-Strategy (node/require "passport-local")))
 (def Promise (node/require "bluebird"))
-(def bcrypt (.promisifyAll Promise (node/require "bcrypt")))
+(def bcrypt (node/require "bcrypt"))
 (def massive (node/require "massive"))
 (def db (.connectSync massive #js {:connectionString database-url}))
-
-;; Models
-
 
 ;; Actions
 
@@ -40,23 +40,36 @@
 ;; Authentication
 (.use passport "local"
       (Strategy. (fn [username password callback]
-                   (let [user {}]
-                     (callback nil user)))))
-
+                   (.findOne (.-users db)
+                             #js {:username username}
+                             (fn [err user]
+                               (cond
+                                (not (nil? err)) (callback err)
+                                (= user nil) (callback nil false)
+                                (.compareSync bcrypt password (.-password user)) (callback nil user)
+                                :else (callback nil false)))))))
 
 (.serializeUser passport
                 (fn [user callback]
-                  (callback nil (get user :id))))
+                  (callback nil (.-id user))))
 
 (.deserializeUser passport
                   (fn [id callback]
-                    (callback {:id id})))
+                    (.findOne (.-users db)
+                           id
+                           (fn [err user]
+                             (callback nil user)))))
 
 (defn -main []
   (let [port 3000
         app (express)]
+    (.use app (cookie-parser))
+    (.use app (.urlencoded body-parser #js {:extended true}))
     (.use app (express-session session-config))
-    (.get app "/" index)
+    (.use app (.initialize passport))
+    (.use app (.session passport))
+
+    (.get app "/" (serve-hoplon "target/index.html"))
     (.get app "/login" (serve-hoplon "target/login.html"))
     (.get app "/api/links" (fn [req res]
                              (.find (.-links db)
@@ -69,14 +82,17 @@
                                        "local"
                                        #js {:successRedirect "/"
                                             :failureRedirect "/login"}))
+    (.get app "/debug-session"
+          (fn [req res] (.send res (.stringify js/JSON #js {:user (.-user req) :session (.-session req)}))))
     (.get app "/logout" (fn [req res]
                           (.logout req)
                           (.redirect res "/")))
+    (.get app "/profile"
+          (.ensureLoggedIn connect-ensure-login)
+          (fn [req res] (.send res "It worked I'm logged in!")))
+
     (.use app (.static express "target"))
     (.use app (.static express "resources/public"))
-
-    (.use app (.initialize passport))
-    (.use app (.session passport))
 
     (.listen app port #(println (str "Server started on http://localhost:" port)))))
 
