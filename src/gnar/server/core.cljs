@@ -23,21 +23,11 @@
 (def Strategy (.-Strategy (node/require "passport-local")))
 (def Promise (node/require "bluebird"))
 (def bcrypt (.promisifyAll Promise (node/require "bcrypt")))
-(def Sequelize (node/require "sequelize"))
-(def db (Sequelize. database-url))
+(def massive (node/require "massive"))
+(def db (.connectSync massive #js {:connectionString database-url}))
 
 ;; Models
 
-(def User (.define db
-                   "user"
-                   #js {:id {:type (.UUID Sequelize)
-                             :defaultValue (.UUIDV4 Sequelize)
-                             :primaryKey true}
-                        :username {:type (.STRING Sequelize)}
-                        :email {:type (.STRING Sequelize)}
-                        :password {:type (.STRING Sequelize)}}))
-
-(.sync User #js {:force true})
 
 ;; Actions
 
@@ -68,7 +58,13 @@
     (.use app (express-session session-config))
     (.get app "/" index)
     (.get app "/login" (serve-hoplon "target/login.html"))
-    (.get app "/users" (fn [req res] (.findAll User)))
+    (.get app "/api/links" (fn [req res]
+                             (.find (.-links db)
+                                    #js {}
+                                    #js {:order "created_at desc"}
+                                    (fn [err rows]
+                                      (.writeHead res 200 #js {"Content-Type" "application/json"})
+                                      (.end res (.stringify js/JSON rows))))))
     (.post app "/login" (.authenticate passport
                                        "local"
                                        #js {:successRedirect "/"
