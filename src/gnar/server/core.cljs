@@ -38,6 +38,10 @@
 (defn serve-hoplon [view-file]
   (fn [req res] (.sendfile res view-file)))
 
+(defn serve-json [res obj]
+  (.writeHead res 200 #js {"Content-Type" "application/json"})
+  (.end res (.stringify js/JSON obj)))
+
 ;; Authentication
 (.use passport "local"
       (Strategy. (fn [username password callback]
@@ -74,18 +78,14 @@
     (.get app "/" (serve-hoplon "target/index.html"))
     (.get app "/login" (serve-hoplon "target/login.html"))
     (.get app "/api/links" (fn [req res]
-                             (.find (.-links db)
-                                    #js {}
-                                    #js {:order "created_at desc"}
+                             (.find (.-links db) #js {} #js {:order "created_at desc"}
                                     (fn [err rows]
-                                      (.writeHead res 200 #js {"Content-Type" "application/json"})
-                                      (.end res (.stringify js/JSON rows))))))
-    (.post app "/login" (.authenticate passport
-                                       "local"
-                                       #js {:successRedirect "/"
-                                            :failureRedirect "/login"}))
+                                      (serve-json res rows)))))
+    (.post app "/login" (.authenticate passport "local" #js {:successRedirect "/"
+                                                             :failureRedirect "/login"}))
     (.get app "/debug-session"
-          (fn [req res] (.send res (.stringify js/JSON #js {:user (.-user req) :session (.-session req)}))))
+          (fn [req res]
+            (serve-json #js {:user (.-user req) :session (.-session req)})))
     (.get app "/logout" (fn [req res]
                           (.logout req)
                           (.redirect res "/")))
