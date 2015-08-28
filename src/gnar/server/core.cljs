@@ -26,6 +26,7 @@
 (def Strategy (.-Strategy (node/require "passport-local")))
 (def Promise (node/require "bluebird"))
 (def bcrypt (node/require "bcrypt"))
+(def morgan (node/require "morgan"))
 (def massive (node/require "massive"))
 (def db (.connectSync massive #js {:connectionString database-url}))
 
@@ -63,6 +64,7 @@
 (defn -main []
   (let [port 3000
         app (express)]
+    (.use app (morgan "combined"))
     (.use app (cookie-parser))
     (.use app (.urlencoded body-parser #js {:extended true}))
     (.use app (express-session session-config))
