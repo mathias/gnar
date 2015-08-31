@@ -38,9 +38,7 @@
 (defn serve-hoplon [view-file]
   (fn [req res] (.sendfile res view-file)))
 
-(defn serve-json [res obj]
-  (.writeHead res 200 #js {"Content-Type" "application/json"})
-  (.end res (.stringify js/JSON obj)))
+(defn serve-json [obj])
 
 ;; Authentication
 (.use passport "local"
@@ -80,7 +78,8 @@
     (.get app "/api/links" (fn [req res]
                              (.find (.-links db) #js {} #js {:order "created_at desc"}
                                     (fn [err rows]
-                                      (serve-json res rows)))))
+                                      (.writeHead res 200 #js {"Content-Type" "application/json"})
+                                      (.end res (.stringify js/JSON rows))))))
     (.post app "/login" (.authenticate passport "local" #js {:successRedirect "/"
                                                              :failureRedirect "/login"}))
     (.get app "/debug-session"
