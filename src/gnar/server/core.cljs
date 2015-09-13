@@ -29,6 +29,21 @@
 (def morgan (node/require "morgan"))
 (def massive (node/require "massive"))
 (def db (.connectSync massive #js {:connectionString database-url}))
+(def users-table (.-users db))
+(def links-table (.-links db))
+;; Database
+
+(defn create-user! [username password]
+  (.findOne users-table
+            #js {:username username}
+            (fn [err user]
+              (when (nil? user)
+                ;; good. no user found
+                (.save users-table
+                       #js {:username username :password password :email ""}
+                       (fn [err inserted]
+                         (println inserted)
+                         inserted))))))
 
 ;; Actions
 
@@ -38,7 +53,32 @@
 (defn serve-hoplon [view-file]
   (fn [req res] (.sendfile res view-file)))
 
-(defn serve-json [obj])
+(defn serve-json [json-fn]
+  (fn [req res]
+    (let [json (json-fn req)]
+      (.writeHead res 200 #js {"Content-Type" "application/json"})
+      (.end res (.stringify js/JSON json)))))
+
+(defn register-user!
+  [req res]
+  (let [body (.-body req)
+        username (.-username body)
+        password (.-password body)
+        password-2 (.-password-2 body)]
+    ;; validate inputs
+    (if (and (not (nil? username))
+             (not (nil? password))
+             (not (nil? password-2))
+             (= password password-2)
+             (> (count password) 12))
+      ;; validated
+      (let [user (create-user! username password)]
+        (.login req (fn [err]
+                    (if err
+                      (.redirect res "/register")
+                      (.redirect res "/")))))
+      ;; incorrect validation
+      (.redirect res "/register"))))
 
 ;; Authentication
 (.use passport "local"
@@ -75,16 +115,17 @@
 
     (.get app "/" (serve-hoplon "target/index.html"))
     (.get app "/login" (serve-hoplon "target/login.html"))
+    (.get app "/register" (serve-hoplon "target/register.html"))
     (.get app "/api/links" (fn [req res]
-                             (.find (.-links db) #js {} #js {:order "created_at desc"}
+                             (.find links-table #js {} #js {:order "created_at desc"}
                                     (fn [err rows]
                                       (.writeHead res 200 #js {"Content-Type" "application/json"})
                                       (.end res (.stringify js/JSON rows))))))
     (.post app "/login" (.authenticate passport "local" #js {:successRedirect "/"
                                                              :failureRedirect "/login"}))
+    (.post app "/register" register-user!)
     (.get app "/debug-session"
-          (fn [req res]
-            (serve-json #js {:user (.-user req) :session (.-session req)})))
+          (serve-json (fn [req] #js {:user (.-user req) :session (.-session req)})))
     (.get app "/logout" (fn [req res]
                           (.logout req)
                           (.redirect res "/")))
