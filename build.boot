@@ -7,6 +7,7 @@
     [adzerk/boot-reload          "0.3.1"           :scope "test"]
     [tailrecursion/boot-hoplon   "0.1.1"           :scope "test"]
     [crisptrutski/boot-cljs-test "0.1.0-SNAPSHOT"  :scope "test"]
+    [mathias/boot-restart        "0.0.2"           :scope "test"]
     [org.clojure/clojure         "1.7.0"]
     [org.clojure/clojurescript   "1.7.58"]
     [tailrecursion/hoplon "6.0.0-alpha5"]])
@@ -15,6 +16,7 @@
   '[adzerk.boot-cljs      :refer [cljs]]
   '[adzerk.boot-cljs-repl :refer [cljs-repl start-repl]]
   '[adzerk.boot-reload    :refer [reload]]
+  '[mathias.boot-restart  :refer [restart]]
   '[crisptrutski.boot-cljs-test :refer [test-cljs]]
   '[tailrecursion.boot-hoplon :refer :all])
 
@@ -32,3 +34,6 @@
            :optimizations :whitespace)
    (cljs :optimizations :none
          :source-map true)))
+
+(deftask restart-server []
+  (restart :command "node app.js"))
