@@ -34,6 +34,3 @@
            :optimizations :whitespace)
    (cljs :optimizations :none
          :source-map true)))
-
-(deftask restart-server []
-  (restart :command "node app.js"))
