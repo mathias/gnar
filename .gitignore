@@ -12,6 +12,7 @@ pom.xml.asc
 .lein-plugins
 .lein-repl-history
 .nrepl-history
+.nrepl-port
 *.swn
 *.swo
 *.swp
