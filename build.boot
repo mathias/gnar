@@ -13,11 +13,12 @@
     ;; project dependencies
     [environ "1.0.1"]
     [http-kit "2.1.19"]
+    [korma "0.4.2"]
     [liberator "0.13"]
     [org.clojure/clojure         "1.7.0"]
     [org.clojure/clojurescript   "1.7.122"]
     [org.danielsz/system "0.1.9"]
-    [org.clojure/java.jdbc "0.4.1"]
+    [org.clojure/java.jdbc "0.3.7"]
     [org.clojure/tools.nrepl "0.2.10"]
     [playnice "1.0.1"]
     [postgresql "9.3-1102.jdbc41"]
@@ -67,6 +68,8 @@
   (set-env! :source-paths #{"test" "src"})
   (comp
    (watch :verbose true)
-   ;; (environ :env {:database-url "postgres://localhost:5432/gnar_test"}
-   ;;          :verbose true)
+   (environ :env {:database-url "postgres://localhost:5432/gnar_test"})
+   (system :sys #'test-system
+           :hot-reload true
+           :auto-start true)
    (test)))
