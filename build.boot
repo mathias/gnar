@@ -68,8 +68,4 @@
   (set-env! :source-paths #{"test" "src"})
   (comp
    (watch :verbose true)
-   (environ :env {:database-url "postgres://localhost:5432/gnar_test"})
-   (system :sys #'test-system
-           :hot-reload true
-           :auto-start true)
    (test)))

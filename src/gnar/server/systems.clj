@@ -7,13 +7,12 @@
             [gnar.server.handler :refer [app]]))
 
 (defsystem dev-system
-  [:web (new-web-server (Integer. (env :http-port)) app)
+  [:web (new-web-server (or (Integer. (env :http-port))
+                            3000) app)
    :db (new-postgres-database (env :database-url))])
-
-(defsystem test-system
-  [:db (new-postgres-database (env :database-url))])
 
 (defsystem prod-system
   [:web (new-web-server (Integer. (env :http-port)) app)
    :repl-server (new-repl-server (Integer. (env :repl-port)))
    :db (new-postgres-database (env :database-url))])
+
